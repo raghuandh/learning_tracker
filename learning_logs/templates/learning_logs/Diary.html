@@ -1,0 +1,38 @@
+{% extends "learning_logs/base.html" %}
+{% load bootstrap3 %}
+
+
+
+{% block header %}
+<h2> Share About Your Day</h2>
+{% endblock header %}
+{% block content %}
+<p>
+    <a href="{% url 'new_diary_entry' %}">add new entry</a>
+ </p>
+{% if entries %}
+    <ul>
+        {% for entry in entries %}
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3>
+                {{ entry.entry_date }}
+               <small>
+                <a href="{% url 'diary_entry_edit' entry.id %}">
+                edit entry</a>
+                </small>
+                </h3>
+                </div>
+               <div class="panel-body">
+                {{ entry.entry_text|linebreaks }}
+                </div>
+                </div>
+               {% empty %}
+               There are no entries for this topic yet.
+               {% endfor %}
+
+    </ul>
+{% else %}
+    <p>No entries yet.</p>
+{% endif %}
+{% endblock content %} 
